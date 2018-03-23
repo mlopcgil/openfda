@@ -1,1 +1,4 @@
-with open('label.json', 'r') as file:
+import http.client
+import json
+
+headers = {'User-Agent': 'http-client'}
