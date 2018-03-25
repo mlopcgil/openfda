@@ -4,15 +4,21 @@ import json
 headers = {'User-Agent': 'http-client'}
 
 conn = http.client.HTTPSConnection("api.fda.gov")
+<<<<<<< HEAD
 #realizamos los mismos pasos que en el programa 1 pero con un cambio
 conn.request("GET", "/drug/label.json?limit=10", None, headers)
 #como te pide los 10 primeros medicamentos ponemos ?limit=10 en el que solo te aparecerán esos
+=======
+#api.fda es la página general donde se pueden encontrar todos los medicamentos
+conn.request("GET", "/drug/label.json?limit=10", None, headers)
+>>>>>>> origin/master
 r1 = conn.getresponse()
 print(r1.status, r1.reason)
 label_general = r1.read().decode("utf-8")
 conn.close()
 
 label_definitiva = json.loads(label_general)
+<<<<<<< HEAD
 #se vuelve a mejorar el label
 for i in range(len(label_definitiva['results'])):
     información_medicamento=label_definitiva['results'][i]
@@ -20,3 +26,8 @@ for i in range(len(label_definitiva['results'])):
 #para ello usamos range para establecer el intervalo y len para que sea en esa longitud
 #ya no usamos [0] sino [i] que hace referencia a los 10 medicamentos
     print('La id es: ',información_medicamento['id'])
+=======
+for i in range(len(label_definitiva['results'])):
+    información_medicamento=label_definitiva['results'][i]
+    print('ID: ',información_medicamento['id'])
+>>>>>>> origin/master
