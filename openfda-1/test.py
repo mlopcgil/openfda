@@ -1,7 +1,7 @@
 import http.client
 import json
 
-headers = {'User-Agent': 'http-client'} #son las cabeceras de mi petición
+headers = {'User-Agent': 'http-client'} #son las cabeceras de mi petición.
 #es el cliente de openfda
 
 conn = http.client.HTTPSConnection("api.fda.gov") #creo una conexión
