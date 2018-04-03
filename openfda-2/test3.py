@@ -9,7 +9,9 @@ while True:
     conn = http.client.HTTPSConnection("api.fda.gov")
     conn.request("GET", '/drug/label.json?limit=100&skip='str(skip)+'&search=substance_name:"ASPIRIN"', None, headers)
     #usamos la función skip porque queremos la información de todos los medicamentos
-    #creamos un bucle que parte de 0 y que va recorriendo todos los medicamentos
+    #lo pedimos en rodajas de 100
+    #el skip sirve para saltarte en el primer caso los 0 primeros, es decir, que no se salte ninguno
+    #la siguiente vez que se recorra el bucle se saltará los 100 primeros
     #convertimos en string el skip
     #para buscar todos los productos relacionados con las aspirinas usamos la función search
     
@@ -29,4 +31,6 @@ while True:
 
     if (len(label_definitiva['results'])<100):
         break
+        #este if sirve para que si la label tiene menos de 100 el bucle se rompa y no siga
     skip=skip+100
+    #se va sumando 100 al skip, por eso en la segunda vuelta se saltaba los 100 primeros
