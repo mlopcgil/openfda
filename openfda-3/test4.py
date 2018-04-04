@@ -3,7 +3,7 @@ import socketserver
 import http.client
 import json
 
-PORT = 7038
+PORT = 8825
 #para lanzar el servidor usamos un puerto
 
 
@@ -21,33 +21,28 @@ def list():
 
     label_definitiva = json.loads(label_general)
     for i in range(len(label_definitiva['results'])):
-        informacion_medicamento = label_definitiva['results'][i]
-        print('El nombre generico es: ', informacion_medicamento['openfda']['generic_name'][0])
-        lista.append(informacion_medicamento['openfda']['generic_name'][0])
+        información_medicamento = label_definitiva['results'][i]
+        if (información_medicamento['openfda']):
+            print('El medicamento es: ', información_medicamento['openfda']['generic_name'][0])
+            lista.append(información_medicamento['openfda']['generic_name'][0])
 
     return lista
-# Clase con nuestro manejador. Es una clase derivada de BaseHTTPRequestHandler
-# Esto significa que "hereda" todos los metodos de esta clase. Y los que
-# nosotros consideremos los podemos reemplazar por los nuestros
+
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
-    #handler es un manejador de peticiones
-    #class hereda los metodos de BaseHTTPRequestHandler
+    # handler es un manejador de peticiones
+    # class hereda los metodos de BaseHTTPRequestHandler
 
-    # GET. Este metodo se invoca automaticamente cada vez que hay una
-    # peticion GET por HTTP. El recurso que nos solicitan se encuentra
-    # en self.path
+
     def do_GET(self):
-        # La primera linea del mensaje de respuesta es el
-        # status. Indicamos que OK
-        self.send_response(200)
 
-        # En las siguientes lineas de la respuesta colocamos las
-        # cabeceras necesarias para que el cliente entienda el
-        # contenido que le enviamos (que sera HTML)
+        self.send_response(200)
+        #para indicar que está bien, ok
+
+
         self.send_header('Content-type', 'text/html')
         self.end_headers()
         content="<html><body>"
-        lista=list()
+        lista=list ()
         for e in lista:
             content += e+"<br>"
         content+="</body></html>"
@@ -56,10 +51,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         return
 
 
-# ----------------------------------
-# El servidor comienza a aqui
-# ----------------------------------
-# Establecemos como manejador nuestra propia clase
+
 Handler = testHTTPRequestHandler
 
 httpd = socketserver.TCPServer(("", PORT), Handler)
@@ -71,5 +63,6 @@ except KeyboardInterrupt:
 
 httpd.server_close()
 print("")
-print("Server stopped!")
+print("Servidor parado")
+
 
