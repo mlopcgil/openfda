@@ -7,7 +7,7 @@ headers = {'User-Agent': 'http-client'}
 skip=0
 while True:
     conn = http.client.HTTPSConnection("api.fda.gov")
-    conn.request("GET", '/drug/label.json?limit=100&skip='str(skip)+'&search=substance_name:"ASPIRIN"', None, headers)
+    conn.request("GET", '/drug/label.json?limit=100&skip='+str(skip)+'&search=substance_name:"ASPIRIN"', None, headers)
     #usamos la función skip porque queremos la información de todos los medicamentos
     #lo pedimos en rodajas de 100
     #el skip sirve para saltarte en el primer caso los 0 primeros, es decir, que no se salte ninguno
@@ -26,8 +26,8 @@ while True:
 
     for i in range (len (label_definitiva['results'])):
         información_medicamento=label_definitiva['results'][i]
-        print ('La id es: ',medicamento_info['id'])
-        print('El fabricante del producto es: ', medicamento_info['openfda']['manufacturer_name'][0])
+        print ('La id es: ',información_medicamento['id'])
+        print('El fabricante del producto es: ', información_medicamento['openfda']['manufacturer_name'][0])
 
     if (len(label_definitiva['results'])<100):
         break
