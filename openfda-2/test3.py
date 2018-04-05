@@ -27,7 +27,8 @@ while True:
     for i in range (len (label_definitiva['results'])):
         información_medicamento=label_definitiva['results'][i]
         print ('La id es: ',información_medicamento['id'])
-        print('El fabricante del producto es: ', información_medicamento['openfda']['manufacturer_name'][0])
+        if (información_medicamento['openfda']):
+            print('El fabricante del producto es: ', información_medicamento['openfda']['manufacturer_name'][0])
 
     if (len(label_definitiva['results'])<100):
         break
