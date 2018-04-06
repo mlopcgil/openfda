@@ -3,7 +3,7 @@ import socketserver
 import http.client
 import json
 
-PORT = 8825
+PORT = 9925
 #para lanzar el servidor usamos un puerto
 
 
@@ -41,10 +41,12 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
         self.send_header('Content-type', 'text/html')
         self.end_headers()
-        content="<html><body>"
+        #para indicar que el contenido será del tipo html
+        content="<html><body style='background-color: pink'><h1>Los medicamentos son:</h2>"
         lista=list ()
         for e in lista:
             content += e+"<br>"
+            
         content+="</body></html>"
 
         self.wfile.write(bytes(content, "utf8"))
@@ -53,9 +55,11 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
 
 Handler = testHTTPRequestHandler
+#el manejador será la clase
 
 httpd = socketserver.TCPServer(("", PORT), Handler)
 print("serving at port", PORT)
+#para atender las peticiones del cliente
 try:
     httpd.serve_forever()
 except KeyboardInterrupt:
